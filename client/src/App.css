@@ -3,40 +3,73 @@
 }
 
 .Game-background {
-  background-color: #282c34;
+  background: linear-gradient(to right, #282c34, white);
   color: white;
 }
 
 .Live-game__structure {
   display: grid;
-  grid-template-rows: 40% 60%;
+  grid-template-rows: 10% 20% 70%;
   min-height: 100vh;
   min-width: 100%;
   overflow-x: hidden;
 }
 
-.Scoreboard {
+.Room-number {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  margin: 5vh 5vw 0 5vw;
-}
-
-.User-profile {
-  margin-top: 10vh;
+  justify-content: center;
+  align-items: flex-end;
+  background: linear-gradient(to right, #282c34, white);
+  height: 10vh;
+  text-align: center;
   font-size: 2.5vh;
 }
 
-.Copy-clipboard {
-  background-color: #282c34;
-  height: 2vh;
-  font-size: 4vh;
-  color: white;
+.Scoreboard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Player-profile {
+  height: 15vh;
+  width: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.75vh;
+  color: black;
   border-style: none;
 }
 
-.Copy-clipboard:hover {
+.Player-profile-turn {
+  background-color: transparent;
+  animation: Fadetask 3s linear infinite;
+}
+
+@keyframes Fadetask {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.Player-profile-inactive {
+  background-color: transparent;
+}
+
+.Player-profile:hover {
   cursor: pointer;
+}
+
+.Player-avatar {
+  height: 10vh;
+  width: 10vh;
+  border: solid 0.2rem black;
+  border-radius: 50%;
 }
 
 .Stock-ticker {
@@ -44,7 +77,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: -40vh;
   width: 100%;
 }
 
@@ -56,7 +88,7 @@
 
 .Stock-table {
   background-color: black;
-  height: 30%;
+  height: 40%;
   width: 100%;
 }
 
@@ -215,7 +247,7 @@
 
 .Planet-list {
   animation-timing-function: linear;
-  animation: Planet-ticker 25s infinite;
+  animation: Planet-ticker 50s infinite;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -242,6 +274,7 @@
   border: solid 0.1rem #c6bbb9;
   color: black;
   font-size: 1.5vh;
+  text-align: center;
 }
 
 .Planet:hover, .Card:hover {
@@ -249,8 +282,8 @@
 }
 
 .Planet-pic {
-  height: 8vh;
-  width: 8vh;
+  height: 6vh;
+  width: 6vh;
   border: solid 0.1rem #c6bbb9;
 }
 
@@ -259,6 +292,10 @@
   margin-right: 8vh;
   border-radius: 10%;
   z-index: 99;
+}
+
+.Card:hover {
+  cursor: pointer;
 }
 
 .Card-button {

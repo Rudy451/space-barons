@@ -3,15 +3,14 @@ const http = require('http');
 const {Server} = require("socket.io");
 const {useSocketServer} = require("socket-controllers");
 const cors = require("cors");
-const path = require('path');
 import 'reflect-metadata';
 
-const {MainController} = require("./mainController");
-const router = require("./routes");
+const {Controller} = require("./controller");
+const db = require('./models');
 
 const corsOptions = {
   origin: '*',
-  methods: ['GET', 'POST']
+  methods: ['GET']
 }
 
 const app = express();
@@ -20,22 +19,19 @@ const io = new Server(server, {
   cors: corsOptions
 });
 
-useSocketServer(io, {controllers: [MainController]})
+useSocketServer(io, {controllers: [Controller]});
 
 const host = 'localhost';
 const port = '8080';
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', router);
-app.use('*', (req: any, res: any) => {
-  res.send("404... Sorry Not Sorry");
-})
+async function bootstrap(){
+  await db.sequelize.sync()
+  server.listen(port, host, () => {
+    console.log(`listening on ${host}:${port}...`);
+  })
+};
 
-server.listen(port, host, () => {
-  console.log(`listening on ${host}:${port}...`);
-})
-
-module.exports = app;
+bootstrap();
