@@ -33,7 +33,7 @@ function GamePage() {
 
 
   return (
-      <GameRoomStatus.Provider value={{socket, activeGameStatus, updateActiveGameStatus, roomId, updateRoomId, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardDeck}}>
+      <GameRoomStatus.Provider value={{socket, roomId, updateRoomId, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardDeck}}>
         <head>
           <style>
             @import url('https://fonts.googleapis.com/css2?family=Peralta&family=Rowdies:wght@300;400&display=swap');

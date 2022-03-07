@@ -90,11 +90,11 @@ function Game() {
     <div className="Live-game__structure">
       <div className="Room-number">{roomId}</div>
       <div className="Scoreboard">
-        <PlayerData.Provider value={{avatar: 'https://i.postimg.cc/rwJPMW9B/space-player1.png', playerPortfolioList: player1PortfolioList, updatePlayerPortfolioList: updatePlayer1PortfolioList}}>
-          <Player player={playerStatus === '' ? 'TBD' : playerStatus === 'player1' ? 'Winner (Me)' : 'Loser (Them)'} turn={(playerStatus === 'player1' && playerTurn) || (playerStatus === 'player2' && !playerTurn)}/>
+        <PlayerData.Provider value={{playerPortfolioList: player1PortfolioList, updatePlayerPortfolioList: updatePlayer1PortfolioList}}>
+          <Player player={playerStatus === '' ? 'TBD' : playerStatus === 'player1' ? 'Winner (Me)' : 'Loser (Them)'} avatar={playerStatus === '' ? playerStatus : 'https://i.postimg.cc/rwJPMW9B/space-player1.png'} turn={(playerStatus === 'player1' && playerTurn) || (playerStatus === 'player2' && !playerTurn)}/>
         </PlayerData.Provider>
-        <PlayerData.Provider value={{avatar: 'https://i.postimg.cc/13JJLSmP/space-player2.png', playerPortfolioList: player2PortfolioList, updatePlayerPortfolioList: updatePlayer2PortfolioList}}>
-          <Player player={playerStatus === '' ? 'TBD' : playerStatus === 'player2' ? 'Winner (Me)' : 'Loser (Them)'} turn={(playerStatus === 'player2' && playerTurn) || (playerStatus === 'player1' && !playerTurn)}/>
+        <PlayerData.Provider value={{playerPortfolioList: player2PortfolioList, updatePlayerPortfolioList: updatePlayer2PortfolioList}}>
+          <Player player={playerStatus === '' ? 'TBD' : playerStatus === 'player2' ? 'Winner (Me)' : 'Loser (Them)'} avatar={playerStatus === '' ? playerStatus : 'https://i.postimg.cc/13JJLSmP/space-player2.png'} turn={(playerStatus === 'player2' && playerTurn) || (playerStatus === 'player1' && !playerTurn)}/>
         </PlayerData.Provider>
       </div>
       <div className="Stock-ticker">

@@ -28,7 +28,6 @@ export const PlanetData = React.createContext({
   });
 
 export const PlayerData = React.createContext({
-  avatar: '',
   playerPortfolioList: [
     {'name': '', 'shares': 0, 'price': 0, 'marketValue': 0},
     {'name': '', 'shares': 0, 'price': 0, 'marketValue': 0},
