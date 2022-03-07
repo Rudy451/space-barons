@@ -1,4 +1,6 @@
-const GameRoomStatus = React.createContext({
+import React from "react";
+
+export const GameRoomStatus = React.createContext({
   socket: new Promise(() => {}),
   roomId: '',
   updateRoomId: (roomId: string) => {},
@@ -11,7 +13,7 @@ const GameRoomStatus = React.createContext({
   cardDeck: [] as any[]
 });
 
-const PlanetData = React.createContext({
+export const PlanetData = React.createContext({
   planetsList: [
     {'name': '', 'photo': '', 'shares': 0, 'price': 0, 'marketValue': 0, 'changeStatus': 'flat', 'changeAmount': 0},
     {'name': '', 'photo': '', 'shares': 0, 'price': 0, 'marketValue': 0, 'changeStatus': 'flat', 'changeAmount': 0},
@@ -25,7 +27,7 @@ const PlanetData = React.createContext({
   updatePlanetsList: (arr: any) => {}
   });
 
-const PlayerData = React.createContext({
+export const PlayerData = React.createContext({
   avatar: '',
   playerPortfolioList: [
     {'name': '', 'shares': 0, 'price': 0, 'marketValue': 0},
@@ -40,9 +42,3 @@ const PlayerData = React.createContext({
   ],
   updatePlayerPortfolioList: (arr: any) => {}
 });
-
-module.exports = {
-  GameRoomStatus,
-  PlanetData,
-  PlayerData
-}

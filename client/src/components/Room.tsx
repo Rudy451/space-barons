@@ -4,7 +4,7 @@ import { Socket } from 'socket.io-client';
 const {GameRoomStatus} = require('../helpers/gameContext');
 
 function Room() {
-  const {socket, activeGameStatus, updateActiveGameStatus, updateRoomId, updatePlayerTurn} = useContext(GameRoomStatus)
+  const {socket, activeGameStatus, updateActiveGameStatus, updateRoomId, updatePlayerTurn} = useContext(GameRoomStatus);
 
   async function startNewGame(event:any){
     event.preventDefault();
