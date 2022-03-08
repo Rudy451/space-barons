@@ -9,14 +9,14 @@ const {GameRoomStatus, PlanetData, PlayerData} = require('../helpers/gameContext
 function Game() {
 
   const [planetsList, updatePlanetsList] = useState([
-    {'name': 'Mercury', 'photo': 'https://i.postimg.cc/rySqCV5n/mercury.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': 'flat', 'changeAmount': 0},
-    {'name': 'Venus', 'photo': 'https://i.postimg.cc/BQpskmY2/venus.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': 'flat', 'changeAmount': 0},
-    {'name': 'Earth', 'photo': 'https://i.postimg.cc/d0kY7wq9/earth.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': 'flat', 'changeAmount': 0},
-    {'name': 'Mars', 'photo': 'https://i.postimg.cc/63Cx0c42/mars.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': 'flat', 'changeAmount': 0},
-    {'name': 'Jupiter', 'photo': 'https://i.postimg.cc/Dyv3rqv0/jupiter.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': 'flat', 'changeAmount': 0},
-    {'name': 'Saturn', 'photo': 'https://i.postimg.cc/xdbwf5Rx/saturn.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': 'flat', 'changeAmount': 0},
-    {'name': 'Uranus', 'photo': 'https://i.postimg.cc/QtQv5Mvc/uranus.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': 'flat', 'changeAmount': 0},
-    {'name': 'Neptune', 'photo': 'https://i.postimg.cc/0j9FCsqF/neptune.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': 'flat', 'changeAmount': 0}
+    {'name': 'Mercury', 'photo': 'https://i.postimg.cc/rySqCV5n/mercury.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': '', 'changeAmount': 0},
+    {'name': 'Venus', 'photo': 'https://i.postimg.cc/BQpskmY2/venus.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': '', 'changeAmount': 0},
+    {'name': 'Earth', 'photo': 'https://i.postimg.cc/d0kY7wq9/earth.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': '', 'changeAmount': 0},
+    {'name': 'Mars', 'photo': 'https://i.postimg.cc/63Cx0c42/mars.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': '', 'changeAmount': 0},
+    {'name': 'Jupiter', 'photo': 'https://i.postimg.cc/Dyv3rqv0/jupiter.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': '', 'changeAmount': 0},
+    {'name': 'Saturn', 'photo': 'https://i.postimg.cc/xdbwf5Rx/saturn.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': '', 'changeAmount': 0},
+    {'name': 'Uranus', 'photo': 'https://i.postimg.cc/QtQv5Mvc/uranus.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': '', 'changeAmount': 0},
+    {'name': 'Neptune', 'photo': 'https://i.postimg.cc/0j9FCsqF/neptune.png', 'shares': 2000, 'price': 250, 'marketValue': 500000, 'changeStatus': '', 'changeAmount': 0}
   ]);
 
   const [player1PortfolioList, updatePlayer1PortfolioList] = useState([
@@ -43,45 +43,170 @@ function Game() {
     {'name': 'Neptune', 'shares': 40, 'price': 250, 'marketValue': 10000}
   ]);
 
+  const [willTrade, updateWillTrade] = useState([false, '']);
   const [flippedStatus, updateFlippedStatus] = useState(false);
-  const {socket, roomId, playerTurn, updatePlayerTurn, playerStatus} = useContext(GameRoomStatus)
+  const {socket, roomId, updateRoomId, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, cardIndex, updateCardIndex, cardDeck} = useContext(GameRoomStatus)
 
-  async function updateMyGameData(planetName: string, planetShares: number, planetPrice: number){
+  function updateTradeStatus(target:string){
+    updateWillTrade([!willTrade[0], target]);
+  }
+
+  function maxTransRequired(){
+     const masterPlanetIndex = getMasterPlanetIndex(cardDeck[cardIndex].planetName);
+    const playerPlanetIndex = getPlayerPlanetIndex(cardDeck[cardIndex].planetName);
+    const myPortfolio = playerStatus === 'player1' ? player1PortfolioList : player2PortfolioList;
+    return willTrade[1] === 'buy' ? Math.min(planetsList[masterPlanetIndex].shares, myPortfolio[0].shares / planetsList[masterPlanetIndex].price) : myPortfolio[playerPlanetIndex].shares;
+  }
+
+  function getMasterPlanetIndex(targetValue:string){
+    let targetIndex = 0;
+    while(planetsList[targetIndex].name !== targetValue){
+      ++targetIndex;
+    }
+    return targetIndex;
+  }
+
+  function getPlayerPlanetIndex(targetValue:string){
+    let targetIndex = 0;
+    while(player1PortfolioList[targetIndex].name !== targetValue){
+      ++targetIndex;
+    }
+    return targetIndex;
+  }
+
+  async function endGame(socket:any, message: boolean){
+
+    socket.emit('game_over', [roomId, message ? 'Game Over! You Win The Pot!!!' : 'Game Over... Tough Loss.']);
+    let alertBox = document.createElement('div');
+
+    setTimeout(() => {
+      alertBox.classList.add('Game-over-breakdown');
+
+      const alertBoxContent = document.createElement('div');
+      const alertBoxContentText = document.createTextNode(message ? 'Game Over! You Win The Pot!!!' : 'Game Over... Tough Loss.');
+      alertBoxContent.appendChild(alertBoxContentText);
+      (alertBox as HTMLInputElement).appendChild(alertBoxContent);
+
+      (document.getElementsByClassName('Stock-table__taj-mahal-dome')[0] as HTMLInputElement).appendChild(alertBox);
+    }, 3000)
+
+    setTimeout(() => {
+      (document.getElementsByClassName('Stock-table__taj-mahal-dome')[0] as HTMLInputElement).removeChild(alertBox);
+    }, 5000);
+
+    setTimeout(() => {
+      updateRoomId('');
+      updateActiveGameStatus(false);
+      window.location.reload();
+    }, 5000);
+  }
+
+  async function updateMyGameData(event:any){
+    event.preventDefault();
     socket.then((mySocket:any) =>
       {
-        // My Player Updates;
-        let myPortfolio;
-        for(let planet of planetsList){
-          if(planet.name === planetName){
-            planet.shares = planetShares;
-            planet.price = planetPrice;
-            const newMarketValue = planet.price * planet.shares;
-            planet.changeAmount = newMarketValue - planet.marketValue;
-            planet.marketValue = newMarketValue;
-            planet.changeStatus = planet.changeAmount === 0 ? "flat" : planet.changeAmount > 0 ? "up" : "down";
-            break;
+        const myCard = cardDeck[cardIndex];
+        if(myCard.cardType === 'tnt'){
+          endGame(mySocket, false);
+        } else {
+          const myCard = cardDeck[cardIndex];
+          const masterPlanetIndex = getMasterPlanetIndex(myCard.planetName);
+          const playerPlanetIndex = getPlayerPlanetIndex(myCard.planetName);
+          let myPortfolio;
+          let theirPortfolio;
+          myPortfolio = playerStatus === 'player1' ? player1PortfolioList : player2PortfolioList;
+          theirPortfolio = playerStatus === 'player2' ? player2PortfolioList : player1PortfolioList;
+          if(myCard.cardType === 'price'){
+            let newMarketValue;
+            const priceChange = parseInt(myCard.sharePriceChange) / 100;
+            planetsList[masterPlanetIndex].price += Math.round(planetsList[masterPlanetIndex].price * priceChange);
+            myPortfolio[playerPlanetIndex].price += Math.round(myPortfolio[playerPlanetIndex].price * priceChange);
+            theirPortfolio[playerPlanetIndex].price += Math.round(myPortfolio[playerPlanetIndex].price * priceChange);
+            if(myCard.outstandingSharesChange){
+              planetsList[masterPlanetIndex].shares = Math.round(planetsList[masterPlanetIndex].marketValue / planetsList[masterPlanetIndex].price);
+            } else {
+              newMarketValue = planetsList[masterPlanetIndex].price * planetsList[masterPlanetIndex].shares;
+              const changeAmt =((newMarketValue - planetsList[masterPlanetIndex].marketValue) / planetsList[masterPlanetIndex].marketValue) * 100;
+              planetsList[masterPlanetIndex].changeAmount = Math.abs(changeAmt);
+              planetsList[masterPlanetIndex].marketValue = newMarketValue;
+              planetsList[masterPlanetIndex].changeStatus = changeAmt === 0 ? '' : changeAmt > 0 ? '+' : '-';
+            }
+            newMarketValue = myPortfolio[playerPlanetIndex].price * myPortfolio[playerPlanetIndex].shares;
+            myPortfolio[playerPlanetIndex].marketValue = newMarketValue;
+            newMarketValue = theirPortfolio[playerPlanetIndex].price * theirPortfolio[playerPlanetIndex].shares;
+            theirPortfolio[playerPlanetIndex].marketValue = newMarketValue;
+          } else if(myCard.cardType === 'trade' && willTrade[0]){
+              const inputValue = (document.getElementsByClassName('Card-front-input')[0] as HTMLInputElement).value;
+              const numberCheck = inputValue.match(/^\d+$/);
+              if(numberCheck && numberCheck[0] === inputValue){
+                const shareRequestTotal = Math.abs(parseInt(inputValue)) * (willTrade[1] === 'buy' ? 1 : -1);
+                myPortfolio[0].shares -= shareRequestTotal * myPortfolio[playerPlanetIndex].price;
+                myPortfolio[0].marketValue = myPortfolio[0].shares;
+                planetsList[masterPlanetIndex].shares -= shareRequestTotal;
+                planetsList[masterPlanetIndex].marketValue = planetsList[masterPlanetIndex].price * planetsList[masterPlanetIndex].shares;
+                myPortfolio[playerPlanetIndex].shares += shareRequestTotal;
+                myPortfolio[playerPlanetIndex].marketValue = myPortfolio[playerPlanetIndex].price * myPortfolio[playerPlanetIndex].shares;
+                (document.getElementsByClassName('Card-front-input')[0] as HTMLInputElement).value = '';
+              }
+          }
+          if(myPortfolio.reduce((prev:any, curr:any) => prev + curr.marketValue, 0) >= 1000000000){
+            endGame(mySocket, true);
+          } else if(theirPortfolio.reduce((prev:any, curr:any) => prev + curr.marketValue, 0) >= 1000000000){
+            endGame(mySocket, false);
+          } else {
+            planetsList.sort((planetOne, planetTwo) => planetTwo.marketValue-planetOne.marketValue);
+            updatePlanetsList(planetsList);
+            updatePlayerTurn(false);
+            if(playerStatus === 'player1'){
+              updatePlayer1PortfolioList(myPortfolio);
+              updatePlayer2PortfolioList(theirPortfolio);
+            } else {
+              updatePlayer2PortfolioList(myPortfolio);
+              updatePlayer1PortfolioList(theirPortfolio);
+            }
+            mySocket.emit('update_game', [roomId, cardIndex + 1, playerStatus, theirPortfolio, myPortfolio, planetsList]);
+            flipCard(event);
           }
         }
-        planetsList.sort((planetOne, planetTwo) => planetTwo.marketValue-planetOne.marketValue)
-        updatePlanetsList(planetsList);
-        updatePlayerTurn(false);
-        mySocket.emit('update_game', [roomId, player1PortfolioList, planetsList]);
-        flipCard();
       }
     );
   }
 
-  function flipCard() {
+  function flipCard(event:any) {
     updateFlippedStatus(!flippedStatus);
+    if(flippedStatus){
+      setTimeout(() => {updateCardIndex(cardIndex + 1);}, 2000);
+    }
+    if(cardDeck[cardIndex].cardType === 'tnt'){
+      updateMyGameData(event)
+    }
   }
 
   useEffect(() => {
     async function updateTheirGameData(){
-      socket.then((mySocket:any) => mySocket.on('new_game_update', (message: any) => {
-        updatePlayer1PortfolioList(message[0]);
-        updatePlanetsList(message[1]);
-        updatePlayerTurn(true);
-      }));
+      socket.then((mySocket:any) =>
+        mySocket.on('new_game_update', (message: any) =>
+        {
+          if(willTrade){
+            updateWillTrade([false, '']);
+          }
+          updateCardIndex(message[0]);
+          const playerTarget = message[1];
+          if(playerTarget === 'player1'){
+            updatePlayer1PortfolioList(message[2]);
+            updatePlayer2PortfolioList(message[3]);
+          } else {
+            updatePlayer2PortfolioList(message[2]);
+            updatePlayer1PortfolioList(message[3]);
+          }
+          updatePlanetsList(message[4]);
+          updatePlayerTurn(true);
+        },
+        mySocket.on('game_is_over', async (message:any) => {
+          await endGame(mySocket, message);
+        })
+
+      ));
     }
     updateTheirGameData();
   }, [])
@@ -119,16 +244,43 @@ function Game() {
               <div className="Stock-table__taj-mahal-dome">
                 <div className="Card">
                   <ReactCardFlip isFlipped={flippedStatus} flipSpeedBackToFront={1} flipSpeedFrontToBack={1} flipDirection="horizontal">
-                    <button className="Card-button" onClick={() => flipCard()} disabled={!playerTurn}>
+                    <button className="Card-button" onClick={async (event) => flipCard(event)} disabled={!playerTurn}>
                       <div className="Card Card-back">
                         <div className="Card-back-text">$pace</div>
                         <img className="Card-back-image" src="https://i.postimg.cc/LsC4YHZy/president.png"/>
                         <div className="Card-back-text">Baron$</div>
                       </div>
                     </button>
-                    <button className="Card-button" onClick={async () => await updateMyGameData("Mars", 300, 2)}>
-                      <div className="Card Card-front"></div>
-                    </button>
+                    <div className="Card-button">
+                      <div className="Card Card-front">
+                          {cardDeck.length > 0 ?
+                          <div className="Card-front-data">
+                            <img className="Card-front-image" src={cardDeck[cardIndex].planetPhoto}/>
+                            <div className="Card-front-name">{cardDeck[cardIndex].planetName}</div>
+                            <div className="Card-front-description">{cardDeck[cardIndex].photoDescription}</div>
+                            {cardDeck[cardIndex].cardType === 'trade' ?
+                              <div style={{width: '80%'}}>
+                                { willTrade[0] ?
+                                  <div className="Card-front-button-group">
+                                    <form className='Card-front-button-form' onSubmit={async (event) => await updateMyGameData(event)}>
+                                      <input className="Card-front-input" type='number' min={0} max={maxTransRequired()} placeholder='Enter desired shares here...' required={true}/>
+                                      <input className="Card-front-button" type="submit" value="Done"></input>
+                                    </form>
+                                  </div> :
+                                  <div className="Card-front-button-group">
+                                    <button className="Card-front-button" onClick={async () => updateTradeStatus('buy')}>Buy</button>
+                                    <button className="Card-front-button" onClick={async () => updateTradeStatus('sell')}>Sell</button>
+                                    <button className="Card-front-button" onClick={async (event) => await updateMyGameData(event)}>Pass</button>
+                                  </div>
+                                }
+                              </div> : cardDeck[cardIndex].cardType === 'price' ?
+                              <button className="Card-front-button" onClick={async (event) => await updateMyGameData(event)}>Done</button> :
+                              <div></div>
+                            }
+                          </div>
+                          : <div/>}
+                      </div>
+                    </div>
                   </ReactCardFlip>
                 </div>
               </div>

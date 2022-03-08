@@ -59,4 +59,11 @@ export class Controller {
       socket.emit('failed_game_update');
     }
   }
+
+  @OnMessage('game_over')
+  endGame(@SocketIO() io: Server, @ConnectedSocket() socket: Socket, @MessageBody() message:any){
+    const targetRoom = Array.from(io.sockets.adapter.rooms).filter((rm:any) => rm.includes(message[0]));
+    const targetPlayer = Array.from(targetRoom[0][1]).filter(sockId => sockId != socket.id);
+    socket.to(targetPlayer).emit('game_is_over', message.slice(1));
+  }
 }

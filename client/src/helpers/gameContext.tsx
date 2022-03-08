@@ -10,6 +10,8 @@ export const GameRoomStatus = React.createContext({
   updatePlayerTurn: (playerTurn: boolean) => {},
   playerStatus: '',
   updatePlayerStatus: (player: string) => {},
+  cardIndex: 0,
+  updateCardIndex: (cardIndex: number) => {},
   cardDeck: [] as any[]
 });
 

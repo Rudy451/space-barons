@@ -9,7 +9,7 @@ function PlanetList() {
 
   return(
     <div className="Planet-list">
-      {planetsList.map((planet:any, idx:any) => <Planet idx={idx}/>)}
+      {planetsList.map((planet:any, idx:any) => <Planet key={idx} idx={idx}/>)}
     </div>
   )
 }

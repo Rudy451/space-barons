@@ -1,10 +1,60 @@
+ @import url('https://fonts.googleapis.com/css2?family=Peralta&family=Rowdies:wght@300;400&display=swap');
+
 * {
   font-family: 'Peralta', cursive;
 }
 
-.Game-background {
-  background: linear-gradient(to right, #282c34, white);
+
+
+.Welcome-background {
+  background: linear-gradient(0.25turn, #003b59, #9393df, #003b59);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100%;
+  overflow: hidden;
   color: white;
+}
+
+.Mr-Sun {
+  height: 50vh;
+  width: auto;
+}
+
+.Room-Section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Welcome-header-font {
+  font-size: 5vh;
+}
+
+.Welcome-subheading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2vh;
+}
+
+.Start-Game-Button {
+  background-color: #00A2ED;
+  height: 5vh;
+  color: white;
+  border: solid 0.1rem #c6bbb9;
+}
+
+.Start-Game-Button:hover {
+  cursor: pointer;
+}
+
+.Game-background {
+  background: linear-gradient(0.25turn, #003b59, #9393df, #003b59);
 }
 
 .Live-game__structure {
@@ -20,9 +70,10 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  background: linear-gradient(to right, #282c34, white);
+  background: linear-gradient(0.25turn, #003b59, #9393df, #003b59);
   height: 10vh;
   text-align: center;
+  color: white;
   font-size: 2.5vh;
 }
 
@@ -57,6 +108,20 @@
   100% { opacity: 0; }
 }
 
+.Player-portfolio-breakdown {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: space-between;
+  height: 70vh;
+  width: 50vh;
+  position: fixed;
+  top: 20%;
+  z-index: 100;
+  padding: 3vh;
+}
+
 .Player-profile-inactive {
   background-color: transparent;
 }
@@ -70,6 +135,49 @@
   width: 10vh;
   border: solid 0.2rem black;
   border-radius: 50%;
+}
+
+.AlertBoxButtonContainer__styling {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.AlertBoxContent__styling {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.AlertBoxSubcontent__styling {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.AlertBoxSecurityContainer__styling {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.AlertBoxSecurityName__styling {
+  font-size: 1.75vh;
+}
+
+.AlertBoxSecurityDistribution__styling {
+  font-size: 1.25vh;
+  color: grey;
+}
+
+.AlertBoxSecurityMarketvalue__styling {
+  color: #cfbc4c;
 }
 
 .Stock-ticker {
@@ -275,9 +383,18 @@
   color: black;
   font-size: 1.5vh;
   text-align: center;
+  padding: 1vh;
 }
 
-.Planet:hover, .Card:hover {
+.Planet-font-inc {
+  color: green;
+}
+
+.Planet-font-dec {
+  color: red;
+}
+
+.Planet:hover {
   opacity: 50%;
 }
 
@@ -294,30 +411,92 @@
   z-index: 99;
 }
 
-.Card:hover {
-  cursor: pointer;
-}
-
 .Card-button {
   border-style: none;
   background-color: black;
 }
 
 .Card-front {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   background-image: url("https://i.postimg.cc/P5b7nZJZ/space.png");
   background-size: contain no-repeat;
   background-color: #353d53;
-  border: solid 0.1em #7a748c;
-  height: 50vh;
-  width: 40vh;
+  border: solid 0.75em black;
+  height: 70vh;
+  width: 50vh;
   position: fixed;
   top: 50%;
-  left: 425%;
-  transform: translate(-50%, -50%);
+  left: 50%;
+  transform: translate(-43%, -50%);
+}
+
+.Card-front-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.Card-front-image {
+  height: auto;
+  width: 80%;
+  border: solid 0.35rem black;
+}
+
+.Card-front-name {
+  color: white;
+  font-size: 5vh;
+}
+
+.Card-front-description {
+  background-color: white;
+  width: 80%;
+  padding: 1vh;
+  color: black;
+  font-size: 2vh;
+  border: solid 0.25rem black;
+}
+
+.Card-front-button-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.Card-front-button-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.Card-front-button {
+  background-color: #00A2ED;
+  height: 3.5vh;
+  width: 30%;
+  padding: 1vh;
+  color: white;
+  font-size: 1.5vh;
+  border-style: none;
+  margin: 1vh;
+}
+
+.Card-front-input {
+  height: 3.5vh;
+  width: 70%;
+  font-size: 1.40vh;
+  overflow: hidden;
 }
 
 .Card-back {
-  background-image: url("https://i.postimg.cc/85x46PsN/gold-glitter3.png");
+  background-image: url('https://i.postimg.cc/85x46PsN/gold-glitter3.png');
   background-size: contain;
   display: flex;
   flex-direction: column;
@@ -337,4 +516,21 @@
 .Card-back-text {
   font-size: 1vh;
   color: white;
+}
+
+.Card-back:hover, .Card-front-button {
+  cursor: pointer;
+}
+
+.Game-over-breakdown {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  width: 50vh;
+  font-size: 2.5vh;
+  border: solid 0.25rem black;
+  z-index: 100;
 }

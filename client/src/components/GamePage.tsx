@@ -12,6 +12,7 @@ const socket = connectToSocket();
 
 function GamePage() {
 
+  const [cardIndex, updateCardIndex] = useState(0);
   const [roomId, updateRoomId] = useState('');
   const [activeGameStatus, updateActiveGameStatus] = useState(false);
   const [playerTurn, updatePlayerTurn] = useState(false);
@@ -33,21 +34,20 @@ function GamePage() {
 
 
   return (
-      <GameRoomStatus.Provider value={{socket, roomId, updateRoomId, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardDeck}}>
-        <head>
-          <style>
-            @import url('https://fonts.googleapis.com/css2?family=Peralta&family=Rowdies:wght@300;400&display=swap');
-          </style>
-        </head>
+      <GameRoomStatus.Provider value={{socket, roomId, updateRoomId, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardIndex, updateCardIndex, cardDeck}}>
         <div className="App App-header">
           {
             activeGameStatus ?
             <div className="Game-background">
               <Game></Game>
             </div> :
-            <header>
-              <h1>Welcome To $pace Barons</h1>
-              <h2>Ready To $tart Your Trek To Trillion$???</h2>
+            <header className='Welcome-background'>
+              <h1 className='Welcome-header-font'>Welcome To $pace Barons</h1>
+              <img className="Mr-Sun" src="https://i.postimg.cc/LsC4YHZy/president.png"/>
+              <div className="Welcome-subheading">
+                <h2>Ready To $tart Your Trek To Trillion$???</h2>
+                <h3>First Player To Reach $1 Trillion in Total Assets Wins!</h3>
+              </div>
               <Room></Room>
             </header>
           }

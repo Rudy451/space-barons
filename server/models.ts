@@ -34,11 +34,11 @@ const GameCards = sequelize.define('GameCards', {
     allowNull: false
   },
   outstandingSharesChange: {
-    type: DataTypes.STRING,
+    type: DataTypes.BOOLEAN,
     allowNull: false
   },
   sharePriceChange: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false
   },
 }, {
