@@ -22,6 +22,7 @@ function GamePage() {
   useEffect(() => {
     async function setPlayerTurn(){
       socket.then((mySocket:Socket) => {
+        // add encrypted smart contact address;
         mySocket.on('set_player_turn', (startPlayer:boolean, playerStatus:string, cardDeck:any[]) => {
           updatePlayerTurn(startPlayer);
           updatePlayerStatus(playerStatus);
@@ -34,7 +35,7 @@ function GamePage() {
 
 
   return (
-      <GameRoomStatus.Provider value={{socket, roomId, updateRoomId, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardIndex, updateCardIndex, cardDeck}}>
+      <GameRoomStatus.Provider value={{socket, roomId, updateRoomId, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardIndex, updateCardIndex, cardDeck, updateDeckStatus}}>
         <div className="App App-header">
           {
             activeGameStatus ?

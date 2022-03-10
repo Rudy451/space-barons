@@ -6,10 +6,15 @@
     "dev": "npx nodemon ./server/index.ts"
   },
   "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.3",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "dotenv": "^16.0.0",
+    "ethereumjs-testrpc": "^6.0.3",
+    "ethereumjs-tx": "^2.1.2",
     "express": "~4.16.1",
+    "fs": "^0.0.1-security",
     "glob": "^7.2.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
@@ -20,7 +25,10 @@
     "sequelize": "^6.17.0",
     "socket-controllers": "^0.0.5",
     "socket.io": "^4.4.1",
-    "uuid": "^8.3.2"
+    "solc": "^0.8.12",
+    "truffle-hdwallet-provider": "^1.0.17",
+    "uuid": "^8.3.2",
+    "web3": "^1.7.1"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",

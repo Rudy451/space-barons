@@ -209,7 +209,7 @@ function Game() {
       ));
     }
     updateTheirGameData();
-  }, [])
+  }, []);
 
   return (
     <div className="Live-game__structure">
