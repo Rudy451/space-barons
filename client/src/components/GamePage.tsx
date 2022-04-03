@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import { Socket } from 'socket.io-client';
+import {ethers} from 'ethers';
 import '../App.css';
 
 import Room from '../components/Room';
@@ -11,9 +12,70 @@ const GameRoomStatus = require('../helpers/gameContext').GameRoomStatus;
 const socket = connectToSocket();
 
 function GamePage() {
-
+  const [account, updateAccount] = useState((window as any).ethereum)
+  const [contract, updateContract] = useState(
+    new ethers.Contract(
+    '0x53aA82E6d7F45bE639f59c825264dc64FeE2BADC',
+    [
+      {
+        "inputs": [],
+        "stateMutability": "payable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [],
+        "name": "clearPlayer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "internalType": "address payable",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "roomId",
+            "type": "string"
+          }
+        ],
+        "name": "participantDepositFunds",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "roomId",
+            "type": "string"
+          }
+        ],
+        "name": "winnerWithdrawFunds",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "stateMutability": "payable",
+        "type": "receive"
+      }
+    ],
+    new ethers.providers.Web3Provider((window as any).ethereum).getSigner())
+  );
   const [cardIndex, updateCardIndex] = useState(0);
-  const [roomId, updateRoomId] = useState('');
   const [activeGameStatus, updateActiveGameStatus] = useState(false);
   const [playerTurn, updatePlayerTurn] = useState(false);
   const [playerStatus, updatePlayerStatus] = useState('');
@@ -22,8 +84,9 @@ function GamePage() {
   useEffect(() => {
     async function setPlayerTurn(){
       socket.then((mySocket:Socket) => {
-        // add encrypted smart contact address;
-        mySocket.on('set_player_turn', (startPlayer:boolean, playerStatus:string, cardDeck:any[]) => {
+        mySocket.on('set_player_turn', async (startPlayer:boolean, playerStatus:string, myRoom:any, cardDeck:any[]) => {
+          const options = {value: ethers.utils.parseEther('1.0')}
+          await contract.participantDepositFunds(myRoom as any, options);
           updatePlayerTurn(startPlayer);
           updatePlayerStatus(playerStatus);
           updateDeckStatus(cardDeck);
@@ -35,7 +98,7 @@ function GamePage() {
 
 
   return (
-      <GameRoomStatus.Provider value={{socket, roomId, updateRoomId, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardIndex, updateCardIndex, cardDeck, updateDeckStatus}}>
+      <GameRoomStatus.Provider value={{socket, account, contract, updateContract, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardIndex, updateCardIndex, cardDeck, updateDeckStatus}}>
         <div className="App App-header">
           {
             activeGameStatus ?

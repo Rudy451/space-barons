@@ -4,7 +4,7 @@ import { Socket } from 'socket.io-client';
 const {GameRoomStatus} = require('../helpers/gameContext');
 
 function Room() {
-  const {socket, activeGameStatus, updateActiveGameStatus, updateRoomId, updatePlayerTurn} = useContext(GameRoomStatus);
+  const {socket, account, activeGameStatus, updateActiveGameStatus} = useContext(GameRoomStatus);
 
   async function startNewGame(event:any){
     event.preventDefault();
@@ -15,14 +15,13 @@ function Room() {
       } else {
         return mySocket;
       }})
-    .then((mySocket:Socket) => {
-      mySocket.emit("start_new_game");
-      mySocket.on("started_new_game", (newRoomId, startPlayer) => {
+    .then(async (mySocket:Socket) => {
+      await account.enable();
+      mySocket.emit('start_new_game');
+      mySocket.on('started_new_game', async () => {
         updateActiveGameStatus(true);
-        updateRoomId(newRoomId);
-        updatePlayerTurn(startPlayer);
       })
-      mySocket.on("failed_start_game", () => {throw Error("Failed to start game")})
+      mySocket.on('failed_start_game', () => {throw Error('Failed to start game')})
     })
     .catch((error:string) => {
       alert(error)

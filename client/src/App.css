@@ -4,8 +4,6 @@
   font-family: 'Peralta', cursive;
 }
 
-
-
 .Welcome-background {
   background: linear-gradient(0.25turn, #003b59, #9393df, #003b59);
   display: flex;
@@ -59,22 +57,10 @@
 
 .Live-game__structure {
   display: grid;
-  grid-template-rows: 10% 20% 70%;
+  grid-template-rows: 30% 70%;
   min-height: 100vh;
   min-width: 100%;
   overflow-x: hidden;
-}
-
-.Room-number {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  background: linear-gradient(0.25turn, #003b59, #9393df, #003b59);
-  height: 10vh;
-  text-align: center;
-  color: white;
-  font-size: 2.5vh;
 }
 
 .Scoreboard {

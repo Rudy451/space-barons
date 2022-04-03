@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import ReactCardFlip from 'react-card-flip';
+import {ethers} from 'ethers'
 
 import PlanetList from "./PlanetList";
 import Player from './Player';
@@ -45,7 +46,7 @@ function Game() {
 
   const [willTrade, updateWillTrade] = useState([false, '']);
   const [flippedStatus, updateFlippedStatus] = useState(false);
-  const {socket, roomId, updateRoomId, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, cardIndex, updateCardIndex, cardDeck} = useContext(GameRoomStatus)
+  const {socket, account, contract, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, cardIndex, updateCardIndex, cardDeck} = useContext(GameRoomStatus)
 
   function updateTradeStatus(target:string){
     updateWillTrade([!willTrade[0], target]);
@@ -74,9 +75,7 @@ function Game() {
     return targetIndex;
   }
 
-  async function endGame(socket:any, message: boolean){
-
-    socket.emit('game_over', [roomId, message ? 'Game Over! You Win The Pot!!!' : 'Game Over... Tough Loss.']);
+  async function endGame(message: boolean){
     let alertBox = document.createElement('div');
 
     setTimeout(() => {
@@ -95,7 +94,6 @@ function Game() {
     }, 5000);
 
     setTimeout(() => {
-      updateRoomId('');
       updateActiveGameStatus(false);
       window.location.reload();
     }, 5000);
@@ -107,7 +105,7 @@ function Game() {
       {
         const myCard = cardDeck[cardIndex];
         if(myCard.cardType === 'tnt'){
-          endGame(mySocket, false);
+          mySocket.emit('game_over', false);
         } else {
           const myCard = cardDeck[cardIndex];
           const masterPlanetIndex = getMasterPlanetIndex(myCard.planetName);
@@ -150,9 +148,9 @@ function Game() {
               }
           }
           if(myPortfolio.reduce((prev:any, curr:any) => prev + curr.marketValue, 0) >= 1000000000){
-            endGame(mySocket, true);
+            mySocket.emit('game_over', true);
           } else if(theirPortfolio.reduce((prev:any, curr:any) => prev + curr.marketValue, 0) >= 1000000000){
-            endGame(mySocket, false);
+            mySocket.emit('game_over', false);
           } else {
             planetsList.sort((planetOne, planetTwo) => planetTwo.marketValue-planetOne.marketValue);
             updatePlanetsList(planetsList);
@@ -164,7 +162,7 @@ function Game() {
               updatePlayer2PortfolioList(myPortfolio);
               updatePlayer1PortfolioList(theirPortfolio);
             }
-            mySocket.emit('update_game', [roomId, cardIndex + 1, playerStatus, theirPortfolio, myPortfolio, planetsList]);
+            mySocket.emit('update_game', [cardIndex + 1, playerStatus, theirPortfolio, myPortfolio, planetsList]);
             flipCard(event);
           }
         }
@@ -202,8 +200,13 @@ function Game() {
           updatePlanetsList(message[4]);
           updatePlayerTurn(true);
         },
-        mySocket.on('game_is_over', async (message:any) => {
-          await endGame(mySocket, message);
+        mySocket.on('game_is_over', async (message:any, roomId:any) => {
+          if(message){
+            await contract.winnerWithdrawFunds(roomId as string);
+          } else {
+            await contract.clearPlayer();
+          }
+          await endGame(message);
         })
 
       ));
@@ -213,7 +216,6 @@ function Game() {
 
   return (
     <div className="Live-game__structure">
-      <div className="Room-number">{roomId}</div>
       <div className="Scoreboard">
         <PlayerData.Provider value={{playerPortfolioList: player1PortfolioList, updatePlayerPortfolioList: updatePlayer1PortfolioList}}>
           <Player player={playerStatus === '' ? 'TBD' : playerStatus === 'player1' ? 'Winner (Me)' : 'Loser (Them)'} avatar={playerStatus === '' ? playerStatus : 'https://i.postimg.cc/rwJPMW9B/space-player1.png'} turn={(playerStatus === 'player1' && playerTurn) || (playerStatus === 'player2' && !playerTurn)}/>

@@ -1,9 +1,70 @@
 import React from "react";
+import {ethers} from "ethers";
 
 export const GameRoomStatus = React.createContext({
   socket: new Promise(() => {}),
-  roomId: '',
-  updateRoomId: (roomId: string) => {},
+  account: (window as any).ethereum,
+  contract: new ethers.Contract(
+    '0x53aA82E6d7F45bE639f59c825264dc64FeE2BADC',
+    [
+      {
+        "inputs": [],
+        "stateMutability": "payable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [],
+        "name": "clearPlayer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "internalType": "address payable",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "roomId",
+            "type": "string"
+          }
+        ],
+        "name": "participantDepositFunds",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "roomId",
+            "type": "string"
+          }
+        ],
+        "name": "winnerWithdrawFunds",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "stateMutability": "payable",
+        "type": "receive"
+      }
+    ]
+  , new ethers.providers.Web3Provider((window as any).ethereum).getSigner()),
+  updateContract: (contract: any) => {},
   activeGameStatus: false,
   updateActiveGameStatus: (activeGameStatus: any) => {},
   playerTurn: false,
