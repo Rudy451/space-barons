@@ -21,9 +21,9 @@ Player Requirements: Easy-to-follow instructions are included in all listed site
 - Run the game in two different browsers. (I personally tested using chrome and firefox).
 
 ### Tech Stack
-Frontend: React, MetaMask.
-Backend: Socket.io, Express, Sequelize, PostgreSQL.
-Other: Remix IDE (Build, Compile, Test, Deploy Smart Contracts).
+- Frontend: React, MetaMask.
+- Backend: Socket.io, Express, Sequelize, PostgreSQL.
+- Other: Remix IDE (Build, Compile, Test, Deploy Smart Contracts).
 
 ### Contributors
 Dane Johnson (Rudy 451): https://github.com/Rudy451.
