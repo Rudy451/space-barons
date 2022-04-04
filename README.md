@@ -21,7 +21,7 @@ Player Requirements: Easy-to-follow instructions are included in all listed site
 - Create at least two metamask accounts (https://metamask.io/).
 - Add funds via the rinkeby ether faucet (https://faucet.rinkeby.io/).
 - Add the metamask browser extension for at least two different browsers. Options include Chrome, Firefox, Brave, Edge. (You can also download the mobile app for Android & iOS).
-- Run the game in two different browsers. (I personally tested using chrome and firefox).
+- Run the game in two different browsers. (I personally tested using Chrome and Firefox).
 
 ### Tech Stack
 - Frontend: React, MetaMask.
