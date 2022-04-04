@@ -1,5 +1,5 @@
 ### Space Barons
-![Space Barons Register](https://github.com/Rudy451/space-barons/tree/main/gamepics/SpaceBaronsRegister.PNG)
+![Space Barons Register](SpaceBaronsRegister.PNG)
 Space Barons is an online multi-player card game and dapp designed to teach users about investing while introducing them to blockchain technology.
 
 Each game is played between a maximum of two participants who must have a metamask (https://metamask.io/) crypto wallet. Each player contributes one ether - rinkeby testnet either instead of ethereum mainnet - from their metamask account and the winner receives all funds linked to the current game.
