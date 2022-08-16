@@ -1,4 +1,4 @@
- @import url('https://fonts.googleapis.com/css2?family=Peralta&family=Rowdies:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Peralta&family=Rowdies:wght@300;400&display=swap');
 
 * {
   font-family: 'Peralta', cursive;
@@ -341,7 +341,7 @@
 
 .Planet-list {
   animation-timing-function: linear;
-  animation: Planet-ticker 15s infinite;
+  animation: Planet-ticker 25s infinite;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

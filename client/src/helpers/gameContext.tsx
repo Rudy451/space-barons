@@ -5,31 +5,20 @@ export const GameRoomStatus = React.createContext({
   socket: new Promise(() => {}),
   account: (window as any).ethereum,
   contract: new ethers.Contract(
-    '0x53aA82E6d7F45bE639f59c825264dc64FeE2BADC',
+    '0xc337fa4993103B43D9A6FB0ca3d187857baD6145',
     [
       {
         "inputs": [],
-        "stateMutability": "payable",
-        "type": "constructor"
-      },
-      {
-        "inputs": [],
-        "name": "clearPlayer",
+        "name": "clearActiveGame",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
       },
       {
         "inputs": [],
-        "name": "owner",
-        "outputs": [
-          {
-            "internalType": "address payable",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
+        "name": "clearBuggedGame",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
@@ -44,6 +33,11 @@ export const GameRoomStatus = React.createContext({
         "outputs": [],
         "stateMutability": "payable",
         "type": "function"
+      },
+      {
+        "inputs": [],
+        "stateMutability": "payable",
+        "type": "constructor"
       },
       {
         "inputs": [
@@ -61,6 +55,19 @@ export const GameRoomStatus = React.createContext({
       {
         "stateMutability": "payable",
         "type": "receive"
+      },
+      {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "internalType": "address payable",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
       }
     ]
   , new ethers.providers.Web3Provider((window as any).ethereum).getSigner()),

@@ -204,7 +204,7 @@ function Game() {
           if(message){
             await contract.winnerWithdrawFunds(roomId as string);
           } else {
-            await contract.clearPlayer();
+            await contract.clearActiveGame();
           }
           await endGame(message);
         })
