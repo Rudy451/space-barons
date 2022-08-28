@@ -1,5 +1,5 @@
 ### Space Barons
-![SpaceBaronsRegister](https://github.com/Rudy451/space-barons/blob/main/gamepics/SpaceBaronsRegister.PNG)
+![SpaceBaronsRegister](https://github.com/Rudy451/space-barons/blob/main/gamepics/SpaceBaronsRegistration.PNG)
 Space Barons is an online multi-player card game and dapp designed to teach users about investing while introducing them to blockchain technology.
 
 ![SpaceBaronsPayment](https://github.com/Rudy451/space-barons/blob/main/gamepics/SpaceBaronsPayment.PNG)

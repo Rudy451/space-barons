@@ -30,9 +30,8 @@ function Room() {
 
   return (
     <div className='Room-Section'>
-      <h3 className='Welcome-subheading'>Click to join a New Game</h3>
-      <button className='Start-Game-Button' onClick={(event) => startNewGame(event)} disabled={activeGameStatus}>
-        Start New Game
+      <button className='Game-button' onClick={(event) => startNewGame(event)} disabled={activeGameStatus}>
+        Launch
       </button>
     </div>
   )

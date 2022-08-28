@@ -208,7 +208,6 @@ function Game() {
           }
           await endGame(message);
         })
-
       ));
     }
     updateTheirGameData();
