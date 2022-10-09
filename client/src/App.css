@@ -363,6 +363,11 @@
   align-items: center;
   font-size: 10vh;
   font-family: "Pilot-Command-Spaced";
+  --marginStart: -100vh;
+  --marginEnd: 0vh;
+  animation: Animate-intro-vertical 1s;
+  animation-fill-mode: both;
+  animation-delay: 3s;
 }
 
 #Waiting-player-section {
@@ -375,8 +380,12 @@
 .Waiting-player-window {
   height: 45vh;
   width: 45vh;
-  margin-left: 10vh;
-  margin-right: 10vh;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  --marginEnd: 10vw;
+  animation: Animate-intro-horizontal 1s;
+  animation-fill-mode: both;
+  animation-delay: 2s;
 }
 
 #Waiting-planet-background {
@@ -389,6 +398,11 @@
   height: 25vh;
   width: 100vw;
   margin-bottom: -10vh;
+  --marginStart: 100vh;
+  --marginEnd: 0vh;
+  animation: Animate-intro-vertical 1s;
+  animation-fill-mode: both;
+  animation-delay: 1s;
 }
 
 #Waiting-subtitle {

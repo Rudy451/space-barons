@@ -34,14 +34,14 @@ export class Controller {
       if(playerGamesList.length === 0){
         const myRoom = roomsList.length === 0 ? `Room ${uuidv4()}` : roomsList[0][0];
         socket.join(myRoom);
-        socket.emit('started_new_game');
+        socket.emit('started_new_game', myRoom);
         if(roomsList.length === 1){
           const targetPlayer = Array.from(roomsList[0][1])[0];
           const startPlayer = Math.floor(Math.random() * 2) === 1 ? true : false;
           const playerClass = Math.floor(Math.random() * 2) === 1 ? 'player1' : 'player2';
           const cardDeck = await db.cards.findAll();
           socket.emit('set_player_turn', startPlayer, playerClass, myRoom, cardDeck);
-          socket.to(targetPlayer).emit('set_player_turn', !startPlayer, playerClass === 'player1' ? 'player2' : 'player1', myRoom, cardDeck);
+          socket.to(targetPlayer).emit('set_player_turn', !startPlayer, playerClass === 'player1' ? 'player2' : 'player1', cardDeck);
         }
       } else {
         socket.emit('failed_start_game');
