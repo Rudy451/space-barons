@@ -5,6 +5,12 @@ import {ethers} from 'ethers'
 import PlanetList from "./PlanetList";
 import Player from './Player';
 
+import opponent_view from '../images/opponent_view.png';
+import planet_data from '../images/planet_data.png';
+import planet_card_back_top from '../images/planet_card_back_top.png';
+import planet_card_deck from '../images/planet_card_deck.png';
+import planet_card_front from '../images/planet_card_front.png';
+
 const {GameRoomStatus, PlanetData, PlayerData} = require('../helpers/gameContext');
 
 function Game() {
@@ -214,7 +220,43 @@ function Game() {
   }, []);
 
   return (
-    <div className="Live-game__structure">
+    <header className="All-background" id='Game-background'>
+      <div className="Game-status-section">
+        <button id="Game-rules">Rules</button>
+        <img id="Game-opponent-view" src={opponent_view} alt="Opponent view"/>
+        <div className="Game-button" id="Game-player-total">$2000.00</div>
+      </div>
+      <div className="Game-status-section">
+        <div className="Game-planet-data">
+          <div className="Game-planet-data-name">Mars</div>
+          <div className="Game-planet-data-total">$500.00</div>
+        </div>
+        <div className='Game-planet-data'>
+          <div className="Game-planet-data-name">Jupiter</div>
+          <div className="Game-planet-data-total">$500.00</div>
+        </div>
+        <div className='Game-planet-data'>
+          <div className="Game-planet-data-name">Saturn</div>
+          <div className="Game-planet-data-total">$500.00</div>
+        </div>
+        <div className='Game-planet-data'>
+          <div className="Game-planet-data-name">Uranus</div>
+          <div className="Game-planet-data-total">$500.00</div>
+        </div>
+      </div>
+      <div id="Game-cards-section">
+        <img src={planet_card_deck} alt="Planet Card Deck"/>
+        <div id="Game-cards-active">
+          <div className="Game-cards" id="Game-cards-outer-right"/>
+          <div className="Game-cards" id="Game-cards-inner-left"/>
+          <div className="Game-cards"/>
+          <div className="Game-cards" id="Game-cards-inner-right"/>
+          <div className="Game-cards" id="Game-cards-outer-right"/>
+        </div>
+      </div>
+    </header>
+  )
+    {/*<div className="Live-game__structure">
       <div className="Scoreboard">
         <PlayerData.Provider value={{playerPortfolioList: player1PortfolioList, updatePlayerPortfolioList: updatePlayer1PortfolioList}}>
           <Player player={playerStatus === '' ? 'TBD' : playerStatus === 'player1' ? 'Winner (Me)' : 'Loser (Them)'} avatar={playerStatus === '' ? playerStatus : 'https://i.postimg.cc/rwJPMW9B/space-player1.png'} turn={(playerStatus === 'player1' && playerTurn) || (playerStatus === 'player2' && !playerTurn)}/>
@@ -307,8 +349,8 @@ function Game() {
           </PlanetData.Provider>
         </div>
       </div>
-    </div>
-  )
+    </div>*/}
+
 }
 
 export default Game;

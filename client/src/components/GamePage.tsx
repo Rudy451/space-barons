@@ -136,26 +136,12 @@ function GamePage() {
     setPlayerTurn();
   });
 
-  async function cancelGame(event:any){
-    event.preventDefault();
-    socket
-    .then((mySocket:any) => {
-      if(mySocket === undefined){
-        throw Error("Couldn't connect");
-      } else {
-        return mySocket;
-      }})
-    .then(async (mySocket:Socket) => {
-     await contract.clearActiveGame();
-    })
-    .catch((error:string) => {
-      alert(error)
-    })
-  }
-
   return (
       <GameRoomStatus.Provider value={{socket, account, contract, updateContract, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardIndex, updateCardIndex, cardDeck, updateDeckStatus}}>
         <div className="App App-header">
+          {/*<div className="Game-background">
+            <Game/>
+          </div>*/}
           {
             activeGameStatus ?
               (playerTurn ?
