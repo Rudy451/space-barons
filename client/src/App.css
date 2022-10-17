@@ -155,7 +155,6 @@
   font-size: 2vh;
 }
 
-
 .Game-button {
   background-color: #6d6d9d;
   height: 10vh;
@@ -408,6 +407,108 @@
 #Waiting-subtitle {
   font-family: Advent-Pro-Bold;
   font-size: 4vh;
+}
+
+#Game-background {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Game-status-section {
+  width: 75vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#Game-rules {
+  background-color: #040E3D;
+  font-family: 'Pilot-Command-Spaced';
+  font-size: 5vh;
+  color: white;
+  border: None;
+}
+
+#Game-rules:hover {
+  cursor: pointer;
+}
+
+#Game-opponent-view {
+  height: 15vh;
+  width: 10vw;
+}
+
+#Game-player-total {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 5vh;
+  height: 8vh;
+  width: 12vw;
+}
+
+.Game-planet-data {
+  background-image: url('images/planet_data.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 28vh;
+  width: 10vw;
+}
+
+.Game-planet-data-name {
+  padding-top: 9vh;
+  padding-left: 2.75vh;
+  font-family: Advent-Pro-Bold;
+  font-size: 1.9vh;
+}
+
+.Game-planet-data-total {
+  padding-top: 0.5vh;
+  padding-left: 15%;
+  font-family: Advent-Pro-Bold;
+  font-size: 3.5vh;
+}
+
+#Game-cards-section {
+  width: 75vw;
+  display: grid;
+  grid-template-columns: 28% 72%;
+  margin-bottom: -5vh;
+}
+
+#Game-cards-active {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Game-cards {
+  background-image: url('images/planet_card_front.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 25vh;
+  width: 10vw;
+}
+
+#Game-cards-inner-right {
+  margin-top: -2.5vh;
+}
+
+#Game-cards-outer-right {
+  margin-top: -5vh;
+}
+
+#Game-cards-inner-left {
+  margin-top: -2.5vh;
+}
+
+#Game-cards-outer-left {
+  margin-top: -5vh;
 }
 
 .Live-game__structure {
