@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import Planet from './Planet';
+import PlanetOwnershipCard from './PlanetOwnershipCard';
 
 const {PlanetData} = require('../helpers/gameContext');
 
@@ -9,7 +9,7 @@ function PlanetList() {
 
   return(
     <div className="Planet-list">
-      {planetsList.map((planet:any, idx:any) => <Planet key={idx} idx={idx}/>)}
+      {planetsList.map((planet:any, idx:any) => <PlanetOwnershipCard key={idx} idx={idx}/>)}
     </div>
   )
 }

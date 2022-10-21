@@ -139,10 +139,10 @@ function GamePage() {
   return (
       <GameRoomStatus.Provider value={{socket, account, contract, updateContract, activeGameStatus, updateActiveGameStatus, playerTurn, updatePlayerTurn, playerStatus, updatePlayerStatus, cardIndex, updateCardIndex, cardDeck, updateDeckStatus}}>
         <div className="App App-header">
-          {/*<div className="Game-background">
+          {<div className="Game-background">
             <Game/>
-          </div>*/}
-          {
+          </div>}
+          {/*
             activeGameStatus ?
               (playerTurn ?
                 <div className="Game-background">
@@ -150,7 +150,7 @@ function GamePage() {
                 </div> :
                 <WaitingRoom/>) :
               <HomePage/>
-          }
+          */}
         </div>
       </GameRoomStatus.Provider>
   );

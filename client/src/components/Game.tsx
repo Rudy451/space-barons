@@ -2,7 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import ReactCardFlip from 'react-card-flip';
 import {ethers} from 'ethers'
 
-import PlanetList from "./PlanetList";
+import PlanetOwnershipCard from './PlanetOwnershipCard';
+import PlayerCard from './PlayerCard'
 import Player from './Player';
 
 import opponent_view from '../images/opponent_view.png';
@@ -227,27 +228,15 @@ function Game() {
         <div className="Game-button" id="Game-player-total">$2000.00</div>
       </div>
       <div className="Game-status-section">
-        <div className="Game-planet-data">
-          <div className="Game-planet-data-name">Mars</div>
-          <div className="Game-planet-data-total">$500.00</div>
-        </div>
-        <div className='Game-planet-data'>
-          <div className="Game-planet-data-name">Jupiter</div>
-          <div className="Game-planet-data-total">$500.00</div>
-        </div>
-        <div className='Game-planet-data'>
-          <div className="Game-planet-data-name">Saturn</div>
-          <div className="Game-planet-data-total">$500.00</div>
-        </div>
-        <div className='Game-planet-data'>
-          <div className="Game-planet-data-name">Uranus</div>
-          <div className="Game-planet-data-total">$500.00</div>
-        </div>
+        <PlanetOwnershipCard/>
+        <PlanetOwnershipCard/>
+        <PlanetOwnershipCard/>
+        <PlanetOwnershipCard/>
       </div>
       <div id="Game-cards-section">
         <img src={planet_card_deck} alt="Planet Card Deck"/>
         <div id="Game-cards-active">
-          <div className="Game-cards" id="Game-cards-outer-right"/>
+          <div className="Game-cards" id="Game-card-outer-left" />
           <div className="Game-cards" id="Game-cards-inner-left"/>
           <div className="Game-cards"/>
           <div className="Game-cards" id="Game-cards-inner-right"/>
