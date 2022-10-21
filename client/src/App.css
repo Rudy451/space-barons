@@ -446,7 +446,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 5vh;
+  font-size: min(5vh, 3vw);
   height: 8vh;
   width: 12vw;
 }
@@ -531,7 +531,7 @@
   background-image: url('images/planet_card_front.png');
   background-size: contain;
   background-repeat: no-repeat;
-  height: 25vh;
+  height: 20vh;
   width: 10vw;
 }
 
@@ -539,7 +539,7 @@
   background-image: url('images/planet_card_front2.png');
   background-size: contain;
   background-repeat: no-repeat;
-  height: 25vh;
+  height: 20vh;
   width: 10vw;
 }
 
@@ -562,21 +562,19 @@
 #Game-cards-main-content {
   display: grid;
   grid-template-columns: 30% 70%;
-  margin-top: 4vh;
-  height: 20vh;
+  height: 15vh;
   width: 10vw;
   color: black;
 }
 
 #Game-cards-name {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
   transform: rotate(-90deg);
-  height: 9vh;
-  width: 15vh;
+  height: 2.5vh;
+  width: min(10vh, 5vw);
+  margin-top: min(12vh, 8vw);
+  margin-left: max(-2.20vh, -0.65vw);
   font-family: "Pilot-Command-Spaced";
-  font-size: 1.75vh;
+  font-size: min(2.0vh, 1.20vw);
 }
 
 #Game-cards-sub-content {
@@ -584,7 +582,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
+  height: min(16vh, 11vw);
+  width: min(10vh, 10vw);
+  margin-top: 1vh;
 }
 
 .Live-game__structure {

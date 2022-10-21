@@ -236,7 +236,7 @@ function Game() {
       <div id="Game-cards-section">
         <img src={planet_card_deck} alt="Planet Card Deck"/>
         <div id="Game-cards-active">
-          <div className="Game-cards" id="Game-card-outer-left" />
+          <PlayerCard card_spot="outer-left"/>
           <div className="Game-cards" id="Game-cards-inner-left"/>
           <div className="Game-cards"/>
           <div className="Game-cards" id="Game-cards-inner-right"/>
