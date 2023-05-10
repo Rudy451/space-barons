@@ -2,7 +2,7 @@ import React from "react";
 import {ethers} from "ethers";
 
 export const GameRoomStatus = React.createContext({
-  socket: new WebSocket('ws://localhost:8080/ws'),
+  socket: new Promise(() => {}),
   account: (window as any).ethereum,
   contract: new ethers.Contract(
     '0xc337fa4993103B43D9A6FB0ca3d187857baD6145',

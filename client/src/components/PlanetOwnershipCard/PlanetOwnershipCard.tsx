@@ -1,5 +1,8 @@
 import { useContext } from "react";
-const {PlanetData} = require('../helpers/gameContext');
+
+import './PlanetOwnershipCard.css';
+
+const {PlanetData} = require('../../helpers/gameContext');
 
 export default function PlanetOwnershipCard(props:any) {
 

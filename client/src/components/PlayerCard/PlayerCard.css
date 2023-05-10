@@ -1,0 +1,71 @@
+.Game-cards {
+  background-image: url('../../images/planet_card_front.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 20vh;
+  width: 10vw;
+}
+
+#Game-cards-main-content {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  height: min(15vh, 12vw);
+  width: min(20vh, 14vw);
+  color: black;
+}
+
+#Game-cards-name {
+  transform: rotate(-90deg);
+  height: 2.5vh;
+  width: min(10vh, 5vw);
+  margin-top: min(12vh, 8vw);
+  margin-left: max(-2.20vh, -0.65vw);
+  font-family: "Pilot-Command-Spaced";
+  font-size: min(2.0vh, 1.20vw);
+}
+
+#Game-cards-sub-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: min(18vh, 11vw);
+  width: min(12vh, 10vw);
+  margin-top: 1vh;
+}
+
+#Game-cards-photo {
+  background-color: #698FA4;
+  height: min(8vh, 4vw);
+  width: min(8vh, 4vw);
+  border-radius: 50%;
+  margin-top: min(1vh, 0.2vw);
+  margin-right: min(5vh, 9vw);
+}
+
+#Game-cards-description {
+  background-color: #4C82C2;
+  height: min(7vh, 4vw);
+  width: min(7vh, 4vw);
+  font-family: Advent-Pro-Bold;
+  font-size: min(0.9vh, 0.80vw);
+  color: white;
+  padding: 0.75vh;
+  margin-right: min(4vh, 16vw);
+}
+
+#Game-cards-inner-right {
+  margin-top: -2.5vh;
+}
+
+#Game-cards-outer-right {
+  margin-top: -5vh;
+}
+
+#Game-cards-inner-left {
+  margin-top: -2.5vh;
+}
+
+#Game-cards-outer-left {
+  margin-top: -5vh;
+}

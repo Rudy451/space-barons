@@ -2,17 +2,15 @@ import { useState, useEffect, useContext } from "react";
 import ReactCardFlip from 'react-card-flip';
 import {ethers} from 'ethers'
 
-import PlanetOwnershipCard from './PlanetOwnershipCard';
-import PlayerCard from './PlayerCard'
-import Player from './Player';
+import PlanetOwnershipCard from '../PlanetOwnershipCard/PlanetOwnershipCard';
+import PlayerCard from '../PlayerCard/PlayerCard'
+import Player from '../Player';
 
-import opponent_view from '../images/opponent_view.png';
-import planet_data from '../images/planet_data.png';
-import planet_card_back_top from '../images/planet_card_back_top.png';
-import planet_card_deck from '../images/planet_card_deck.png';
-import planet_card_front from '../images/planet_card_front.png';
+import './Game.css';
+import opponent_view from '../../images/opponent_view.png';
+import planet_card_deck from '../../images/planet_card_deck.png';
 
-const {GameRoomStatus, PlanetData, PlayerData} = require('../helpers/gameContext');
+const {GameRoomStatus, PlanetData, PlayerData} = require('../../helpers/gameContext');
 
 function Game() {
 
@@ -237,10 +235,10 @@ function Game() {
         <img src={planet_card_deck} alt="Planet Card Deck"/>
         <div id="Game-cards-active">
           <PlayerCard card_spot="outer-left"/>
-          <div className="Game-cards" id="Game-cards-inner-left"/>
-          <div className="Game-cards"/>
-          <div className="Game-cards" id="Game-cards-inner-right"/>
-          <div className="Game-cards" id="Game-cards-outer-right"/>
+          <PlayerCard card_spot="inner-left"/>
+          <PlayerCard/>
+          <PlayerCard card_spot="inner-right"/>
+          <PlayerCard card_spot="outer-right"/>
         </div>
       </div>
     </header>

@@ -1,14 +1,14 @@
 import {useEffect, useState} from 'react';
 import { Socket } from 'socket.io-client';
 import {ethers} from 'ethers';
-import '../App.css';
+import '../../App.css';
 
-import HomePage from '../components/HomePage';
-import Game from '../components/Game';
-import WaitingRoom from '../components/WaitingRoom';
+import HomePage from '../../components/HomePage/HomePage';
+import Game from '../../components/Game/Game';
+import WaitingRoom from '../../components/WaitingRoom/WaitingRoom';
 
-const {connectToSocket} = require("../helpers/helperFunctions");
-const GameRoomStatus = require('../helpers/gameContext').GameRoomStatus;
+const {connectToSocket} = require("../../helpers/helperFunctions");
+const GameRoomStatus = require('../../helpers/gameContext').GameRoomStatus;
 
 const socket = connectToSocket();
 

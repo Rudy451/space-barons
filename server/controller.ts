@@ -35,7 +35,7 @@ export class Controller {
         const myRoom = roomsList.length === 0 ? `Room ${uuidv4()}` : roomsList[0][0];
         socket.join(myRoom);
         socket.emit('started_new_game', myRoom);
-        if(roomsList.length === 1){
+        if(roomsList.length >= 1){
           const targetPlayer = Array.from(roomsList[0][1])[0];
           const startPlayer = Math.floor(Math.random() * 2) === 1 ? true : false;
           const playerClass = Math.floor(Math.random() * 2) === 1 ? 'player1' : 'player2';

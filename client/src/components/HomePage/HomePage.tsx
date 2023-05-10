@@ -8,14 +8,18 @@ import asteroid_foreground from '../images/asteroid_foreground.png';
 import asteroid_center from '../images/asteroid_center.png';
 import asteroid_background from '../images/asteroid_background.png';
 
-const {GameRoomStatus} = require('../helpers/gameContext');
+const {GameRoomStatus} = require('../../helpers/gameContext');
+const {connect, deliver} = require('../../helpers/webSocketFunctions');
 
 export default function HomePage() {
   const {socket, account, contract, activeGameStatus, updateActiveGameStatus} = useContext(GameRoomStatus);
 
   async function startNewGame(event:any){
     event.preventDefault();
-    socket
+    connect( async (msg:any) => {
+      await account.enable();
+    })
+    /*socket
     .then((mySocket:any) => {
       if(mySocket === undefined){
         throw Error("Couldn't connect");
@@ -34,7 +38,10 @@ export default function HomePage() {
     })
     .catch((error:string) => {
       alert(error)
-    })
+    })*/
+    socket.onopen = () => {
+      console.log("Socket Connected");
+    }
   }
 
   return (

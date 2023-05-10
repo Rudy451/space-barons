@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import GamePage from './components/GamePage';
-import ErrorPage from './components/ErrorPage';
+import GamePage from './components/GamePage/GamePage';
+import ErrorPage from './components/ErrorPage/ErrorPage';
 
 function App(){
   return (

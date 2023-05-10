@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import PlanetOwnershipCard from './PlanetOwnershipCard';
+import PlanetOwnershipCard from './PlanetOwnershipCard/PlanetOwnershipCard';
 
 const {PlanetData} = require('../helpers/gameContext');
 

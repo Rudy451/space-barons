@@ -1,0 +1,61 @@
+.Game-planet-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #3A94E7;
+  border: none;
+  border-radius: 25px;
+  height: 25vh;
+  width: 20vh;
+}
+
+#Game-planet-data-photo {
+  border: none;
+  border-radius: 20%;
+  height: 5.75vh;
+  width: 7.75vh;
+  background-color: white;
+  margin-top: 1vh;
+  margin-left: 1.25vw;
+}
+
+#Game-planet-data-name {
+  font-family: Advent-Pro-Bold;
+  font-size: 1.9vh;
+  margin-left: 1.25vw;
+}
+
+#Game-planet-data-total {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: Advent-Pro-Bold;
+  font-size: 3.5vh;
+}
+
+#Game-planet-data-assets {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+}
+
+#Game-planet-data-assets-names {
+  background-image: url('../../images/planet_asset_names.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 5vh;
+  width: 10vh;
+  margin-left: 0.5vw;
+}
+
+#Game-planet-data-assets-totals {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 4.25vh;
+  font-family: Advent-Pro-Bold;
+  font-size: 1.5vh;
+  margin-right: 0.5vw;
+}
